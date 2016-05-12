@@ -8,13 +8,49 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    @IBOutlet weak var imageView: UIImageView!
+    
+    let picker = UIImagePickerController()
+    
+    var selectedImage = UIImage()
 
+    @IBAction func openCamera(sender: AnyObject) {
+        if UIImagePickerController.availableCaptureModesForCameraDevice(.Rear) != nil{
+            picker.allowsEditing = false
+            picker.sourceType = .Camera
+            picker.cameraCaptureMode = .Photo
+            picker.modalPresentationStyle = .FullScreen
+            presentViewController(picker, animated: true, completion: nil)
+        }
+        else{
+            self.noCamera()
+        }
+    }
+    @IBAction func cipherMessage(sender: AnyObject) {
+        
+    }
+    
+    @IBAction func decipherMessage(sender: AnyObject) {
+    }
+    @IBAction func openLibrary(sender: AnyObject) {
+        
+        picker.allowsEditing = false
+        picker.sourceType = .PhotoLibrary
+        presentViewController(picker, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        picker.delegate = self
+        
+        //let p = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.PicturesDirectory,NSSearchPathDomainMask.UserDomainMask, true)
         let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
         let documentsDirectory: AnyObject = paths[0].stringByAppendingString("/secrert.png")
+       // let dd = p[0].stringByAppendingString("/a.png")
         
         let dt = "senya"
         let img = UIImage(named: "ORIGINAL_IMAGE")
@@ -27,6 +63,7 @@ class ViewController: UIViewController {
                 UIImagePNGRepresentation(temp)?.writeToFile(documentsDirectory as! String, atomically: true)
             }
         }
+        print(documentsDirectory)
         // Do any additional setup after loading the view, typically from a nib.
         
         let img1 = UIImage(named: "secrert")
@@ -40,11 +77,31 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        let chosenImage = info[UIImagePickerControllerOriginalImage]
+        imageView.contentMode = .ScaleAspectFit
+        imageView.image = chosenImage as? UIImage
+        self.selectedImage = imageView.image!
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func noCamera(){
+        let alertVC = UIAlertController(title: "No camera", message: "Sorry, this device has no camera", preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        alertVC.addAction(okAction)
+        presentViewController(alertVC, animated: true, completion: nil)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
 
 
 }
