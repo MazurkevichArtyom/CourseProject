@@ -12,9 +12,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var secretMessage: UITextField!
     let picker = UIImagePickerController()
     
     var selectedImage = UIImage()
+    var imageInfo = String()
 
     @IBAction func openCamera(sender: AnyObject) {
         if UIImagePickerController.availableCaptureModesForCameraDevice(.Rear) != nil{
@@ -30,9 +32,64 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     @IBAction func cipherMessage(sender: AnyObject) {
         
+        if (secretMessage.text != "" && imageView.image != nil){
+            let img = imageView.image
+            ISSteganographer.hideData(secretMessage.text, withImage: img) { (img, error) in
+                if ((error) != nil){
+                    print("error")
+                }
+                else{
+                    let temp = img as! UIImage
+                    UIImageWriteToSavedPhotosAlbum(UIImage(data: UIImagePNGRepresentation(temp)!)!, nil, nil, nil)
+                }
+            }
+            imageView.image = nil
+            secretMessage.text = ""
+        }
+        else{
+            let alertC = UIAlertController(title: "Invalid data", message: "Please upload photo and input secret message", preferredStyle: .ActionSheet)
+            
+            let okC = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) in
+            })
+            alertC.addAction(okC)
+            presentViewController(alertC, animated: true, completion: nil)
+        }
+        //print(documentsDirectory)
     }
     
     @IBAction func decipherMessage(sender: AnyObject) {
+        
+        if (imageView.image != nil && isPNGImage()){
+        
+            ISSteganographer.dataFromImage(imageView.image) { (data, error) in
+                if ((error) != nil){
+                    print("error")
+                }
+                else{
+                    let hiddenData = NSString(data: data, encoding: 8)
+                    let decMsg = hiddenData as! String
+                    let alertMsg = UIAlertController(title: "Secret message", message: decMsg, preferredStyle: .Alert)
+                    
+                    let okMsg = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) in
+                        self.imageView.image = nil
+                    })
+                    alertMsg.addAction(okMsg)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.presentViewController(alertMsg, animated: true, completion: nil)
+                    })
+                }
+            }
+        }
+        else{
+            let alertDec = UIAlertController(title: "Upload photo", message: "Please upload photo by format PNG", preferredStyle: .ActionSheet)
+            
+            let okDec = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) in
+                self.imageView.image = nil
+            })
+            alertDec.addAction(okDec)
+            presentViewController(alertDec, animated: true, completion: nil)
+        }
+        
     }
     @IBAction func openLibrary(sender: AnyObject) {
         
@@ -47,42 +104,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         picker.delegate = self
         
-        //let p = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.PicturesDirectory,NSSearchPathDomainMask.UserDomainMask, true)
-        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        let documentsDirectory: AnyObject = paths[0].stringByAppendingString("/secrert.png")
-       // let dd = p[0].stringByAppendingString("/a.png")
-        
-        let dt = "senya"
-        let img = UIImage(named: "ORIGINAL_IMAGE")
-        ISSteganographer.hideData(dt, withImage: img) { (img, error) in
-            if ((error) != nil){
-                print("error")
-            }
-            else{
-                let temp = img as! UIImage
-                UIImagePNGRepresentation(temp)?.writeToFile(documentsDirectory as! String, atomically: true)
-            }
-        }
-        print(documentsDirectory)
         // Do any additional setup after loading the view, typically from a nib.
         
-        let img1 = UIImage(named: "secrert")
-        ISSteganographer.dataFromImage(img1) { (data, error) in
-            if ((error) != nil){
-                print("error")
-            }
-            else{
-                let hiddenData = NSString(data: data, encoding: 8)
-                print(hiddenData)
-            }
-        }
+        
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
         let chosenImage = info[UIImagePickerControllerOriginalImage]
+        let someInfo = info[UIImagePickerControllerReferenceURL]
+        if let url = someInfo as? NSURL{
+             imageInfo = url.absoluteString
+            print(imageInfo)
+        }
         imageView.contentMode = .ScaleAspectFit
         imageView.image = chosenImage as? UIImage
         self.selectedImage = imageView.image!
+        //print(chosenImage?.size)
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -102,7 +140,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Dispose of any resources that can be recreated.
     }
 
-
+    private func isPNGImage() -> Bool{
+        
+        return self.imageInfo.containsString("&ext=PNG")
+    }
 
 }
 
