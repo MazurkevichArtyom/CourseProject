@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,6 +17,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pixels" translatesAutoresizingMaskIntoConstraints="NO" id="LfG-1I-gkc">
+                                <rect key="frame" x="-4" y="0.0" width="328" height="568"/>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mainicon" translatesAutoresizingMaskIntoConstraints="NO" id="MOh-3h-q1Z">
                                 <rect key="frame" x="10" y="134" width="300" height="300"/>
                                 <constraints>
@@ -27,18 +30,23 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="LfG-1I-gkc" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-20" id="9ZL-15-vCS"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="LfG-1I-gkc" secondAttribute="bottom" id="Da6-vO-2pg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="LfG-1I-gkc" secondAttribute="trailing" constant="-20" id="Ged-e8-xzT"/>
                             <constraint firstItem="MOh-3h-q1Z" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="SE4-m2-7aq"/>
                             <constraint firstItem="MOh-3h-q1Z" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="SrE-Bc-URj"/>
+                            <constraint firstItem="LfG-1I-gkc" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="n6r-D5-rz5"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="248" y="338"/>
         </scene>
     </scenes>
     <resources>
         <image name="mainicon" width="800" height="800"/>
+        <image name="pixels" width="1000" height="681"/>
     </resources>
 </document>

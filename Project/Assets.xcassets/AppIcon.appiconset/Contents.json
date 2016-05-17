@@ -6,8 +6,9 @@
       "scale" : "1x"
     },
     {
-      "idiom" : "ipad",
       "size" : "29x29",
+      "idiom" : "ipad",
+      "filename" : "icon.png",
       "scale" : "2x"
     },
     {

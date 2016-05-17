@@ -8,8 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate , UIPopoverControllerDelegate, UIPopoverPresentationControllerDelegate {
     
+    @IBOutlet weak var infoButton: UIBarButtonItem!
+    @IBOutlet weak var loadingAnimation: UIActivityIndicatorView!
+    @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var secretMessage: UITextField!
@@ -17,7 +20,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     var selectedImage = UIImage()
     var imageInfo = String()
-
+    
+    
+    
     @IBAction func openCamera(sender: AnyObject) {
         if UIImagePickerController.availableCaptureModesForCameraDevice(.Rear) != nil{
             picker.allowsEditing = false
@@ -60,21 +65,30 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func decipherMessage(sender: AnyObject) {
         
         if (imageView.image != nil && isPNGImage()){
+            
+            loadingView.hidden = false
+            loadingView.alpha = 0.7
+            loadingAnimation.startAnimating()
         
             ISSteganographer.dataFromImage(imageView.image) { (data, error) in
-                if ((error) != nil){
+                if ((error) != nil || data == nil){
                     print("error")
                 }
                 else{
-                    let hiddenData = NSString(data: data, encoding: 8)
+                    let hiddenData = NSString(data: data, encoding: NSUTF8StringEncoding)
                     let decMsg = hiddenData as! String
                     let alertMsg = UIAlertController(title: "Secret message", message: decMsg, preferredStyle: .Alert)
                     
+                    //print(decMsg.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
+                    //print(decMsg.characters.count)
+                    //print(self.imageView.image?.size)
                     let okMsg = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) in
                         self.imageView.image = nil
                     })
                     alertMsg.addAction(okMsg)
                     dispatch_async(dispatch_get_main_queue(), {
+                        self.loadingAnimation.stopAnimating()
+                        self.loadingView.hidden = true
                         self.presentViewController(alertMsg, animated: true, completion: nil)
                     })
                 }
@@ -104,23 +118,28 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         picker.delegate = self
         
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "pixels")!)
+        
         // Do any additional setup after loading the view, typically from a nib.
         
         
     }
     
+    
+    
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
         let chosenImage = info[UIImagePickerControllerOriginalImage]
         let someInfo = info[UIImagePickerControllerReferenceURL]
+        
         if let url = someInfo as? NSURL{
              imageInfo = url.absoluteString
-            print(imageInfo)
         }
         imageView.contentMode = .ScaleAspectFit
         imageView.image = chosenImage as? UIImage
         self.selectedImage = imageView.image!
-        //print(chosenImage?.size)
+        //print(someInfo)
+        
         dismissViewControllerAnimated(true, completion: nil)
     }
     
