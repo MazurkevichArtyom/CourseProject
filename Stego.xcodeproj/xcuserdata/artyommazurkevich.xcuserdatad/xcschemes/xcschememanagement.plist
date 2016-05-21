@@ -4,25 +4,15 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>ISStego.xcscheme</key>
+		<key>Stego.xcscheme</key>
 		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-Stego.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
+			<key>orderHint</key>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0E86EA8A2A4BFECD13828BDBA30763D9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>45C0DEDC8C7ECC2929C83D13ECDB5C92</key>
+		<key>3C3B3EDB1CF102C200B6C919</key>
 		<dict>
 			<key>primary</key>
 			<true/>

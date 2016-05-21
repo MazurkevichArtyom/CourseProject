@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
+                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pixels" translatesAutoresizingMaskIntoConstraints="NO" id="FEz-sn-R5p">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VmL-CY-cJs">
+                                <rect key="frame" x="207" y="254" width="187" height="92"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="92" id="dgv-vb-TjG"/>
+                                    <constraint firstAttribute="width" constant="187" id="nQk-c7-bK3"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mainicon" translatesAutoresizingMaskIntoConstraints="NO" id="Ajq-yV-Bbu">
+                                <rect key="frame" x="150" y="150" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="H4T-7E-pVx"/>
+                                    <constraint firstAttribute="width" constant="300" id="S3v-xP-ogd"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="VmL-CY-cJs" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="OH8-yJ-S7s"/>
+                            <constraint firstItem="FEz-sn-R5p" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-20" id="Rgr-bs-FY7"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="FEz-sn-R5p" secondAttribute="bottom" id="VDM-Wg-QYO"/>
+                            <constraint firstItem="FEz-sn-R5p" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="Y5z-ad-eEb"/>
+                            <constraint firstItem="Ajq-yV-Bbu" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="cmN-rl-kV4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FEz-sn-R5p" secondAttribute="trailing" constant="-20" id="dR6-me-7Xh"/>
+                            <constraint firstItem="VmL-CY-cJs" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="kdK-xf-rba"/>
+                            <constraint firstItem="Ajq-yV-Bbu" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="tst-qg-2y3"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="mainicon" width="400" height="400"/>
+        <image name="pixels" width="1000" height="681"/>
+    </resources>
+</document>

@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'DF88A5C46B9BB3260A821F52'
-               BlueprintName = 'ISStego'
+               BlueprintIdentifier = '4D8023E1C64F346491B2DE27'
+               BlueprintName = 'Pods-Stego'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libISStego.a'>
+               BuildableName = 'libPods-Stego.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
