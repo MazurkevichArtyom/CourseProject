@@ -13,6 +13,8 @@
 		3C3B3EE51CF102C200B6C919 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C3B3EE31CF102C200B6C919 /* Main.storyboard */; };
 		3C3B3EE71CF102C200B6C919 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C3B3EE61CF102C200B6C919 /* Assets.xcassets */; };
 		3C3B3EEA1CF102C200B6C919 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C3B3EE81CF102C200B6C919 /* LaunchScreen.storyboard */; };
+		3C5731431CF12ABC009E340D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5731421CF12ABC009E340D /* SettingsViewController.swift */; };
+		3C5731451CF138B6009E340D /* MyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5731441CF138B6009E340D /* MyProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		3C3B3EE91CF102C200B6C919 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C3B3EEB1CF102C200B6C919 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C3B3EF61CF112AD00B6C919 /* Stego-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stego-Bridging-Header.h"; sourceTree = "<group>"; };
+		3C5731421CF12ABC009E340D /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		3C5731441CF138B6009E340D /* MyProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProtocol.swift; sourceTree = "<group>"; };
 		444811DBB35AA3D90EC7C7DF /* Pods-Stego.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stego.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stego/Pods-Stego.debug.xcconfig"; sourceTree = "<group>"; };
 		7DA761822F1CB2533AD91CF9 /* Pods-Stego.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stego.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stego/Pods-Stego.release.xcconfig"; sourceTree = "<group>"; };
 		8D0D1FF325167F91DCC3373E /* libPods-Stego.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Stego.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,6 +81,8 @@
 				3C3B3EE81CF102C200B6C919 /* LaunchScreen.storyboard */,
 				3C3B3EEB1CF102C200B6C919 /* Info.plist */,
 				3C3B3EF61CF112AD00B6C919 /* Stego-Bridging-Header.h */,
+				3C5731421CF12ABC009E340D /* SettingsViewController.swift */,
+				3C5731441CF138B6009E340D /* MyProtocol.swift */,
 			);
 			path = Stego;
 			sourceTree = "<group>";
@@ -214,6 +220,8 @@
 			files = (
 				3C3B3EE21CF102C200B6C919 /* ViewController.swift in Sources */,
 				3C3B3EE01CF102C200B6C919 /* AppDelegate.swift in Sources */,
+				3C5731431CF12ABC009E340D /* SettingsViewController.swift in Sources */,
+				3C5731451CF138B6009E340D /* MyProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

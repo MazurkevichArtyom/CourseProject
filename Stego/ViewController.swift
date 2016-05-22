@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SetSizeAttachment {
     
     @IBOutlet weak var infoButton: UIBarButtonItem!
     @IBOutlet weak var loadingView: UIView!
@@ -21,6 +21,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var loadingAnimation: UIActivityIndicatorView!
     let picker = UIImagePickerController()
     
+    var attchmentSize : Float = 1.0
     var selectedImage = UIImage()
     var imageInfo = String()
     
@@ -29,6 +30,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         picker.sourceType = .PhotoLibrary
         
         presentViewController(picker, animated: true, completion: nil)
+
+    }
+    
+    func setSA(size: Float){
+        attchmentSize = size
 
     }
     
@@ -42,7 +48,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             
             
             let size = "Size of image: " + NSStringFromCGSize(imageView.image!.size)
-            let secretMsgBytes = "\n" + "\(Int(imageView.image!.size.width * imageView.image!.size.height) / 8 ))" + " cipher bytes can be stored in image"
+            let indexSize = CGFloat.init(attchmentSize)
+            let s = Int((imageView.image!.size.width * imageView.image!.size.height * indexSize) / 8)
+            let secretMsgBytes = "\n" + "\(s)" + " cipher bytes can be stored in image"
             
             let useBytes = "\n \(base64e.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)+14*Int(!(secretMessage.text?.isEmpty)!)) bytes are used in your secret message"
             
@@ -182,6 +190,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
         alertVC.addAction(okAction)
         presentViewController(alertVC, animated: true, completion: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if (segue.identifier == "goToSettings"){
+            if let nextVC = segue.destinationViewController as? SettingsViewController{
+                nextVC.delegate = self
+                nextVC.attSize = self.attchmentSize
+            }
+        }
     }
     
     override func viewDidLoad() {
