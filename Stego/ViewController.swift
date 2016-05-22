@@ -35,6 +35,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func setSA(size: Float){
         attchmentSize = size
+        self.navigationItem.title = String.init(format: "%.1f",attchmentSize*100) + " %"
 
     }
     
@@ -126,7 +127,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func cipherMessage(sender: AnyObject) {
-        if (secretMessage.text != "" && imageView.image != nil && !isPNGImage()){
+        
+        
+        
+        if (secretMessage.text != "" && imageView.image != nil && !isPNGImage() && !dataIsLarge()){
             let img = imageView.image
             ISSteganographer.hideData(secretMessage.text, withImage: img) { (img, error) in
                 if ((error) != nil){
@@ -141,10 +145,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             imageInfo = ""
             secretMessage.text = ""
         }
+        else if(imageView.image != nil && dataIsLarge()){
+            let alertC = UIAlertController(title: "Inaccessible size", message: "The size of secret message is more than size of your container", preferredStyle: .ActionSheet)
+            
+            let okC = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) in
+            })
+            alertC.addAction(okC)
+            presentViewController(alertC, animated: true, completion: nil)
+        }
         else{
             let alertC = UIAlertController(title: "Invalid data", message: "Please upload JPG photo and input secret message", preferredStyle: .ActionSheet)
             
             let okC = UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) in
+                self.imageView.image = nil
             })
             alertC.addAction(okC)
             presentViewController(alertC, animated: true, completion: nil)
@@ -205,6 +218,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = String.init(format: "%.1f",attchmentSize*100) + " %"
+        
         picker.delegate = self
         
         mainView.backgroundColor = UIColor(patternImage: UIImage(named: "pixels")!)
@@ -216,6 +231,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     private func isPNGImage() -> Bool{
         
         return self.imageInfo.containsString("&ext=PNG")
+    }
+    
+    private func dataIsLarge() -> Bool{
+        let utf8str = secretMessage.text?.dataUsingEncoding(NSUTF8StringEncoding)
+        let indexSize = CGFloat.init(attchmentSize)
+        let base64e = utf8str!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+        return Int((imageView.image!.size.width * imageView.image!.size.height * indexSize) / 8) < base64e.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)+14*Int(!(secretMessage.text?.isEmpty)!)
     }
 
 

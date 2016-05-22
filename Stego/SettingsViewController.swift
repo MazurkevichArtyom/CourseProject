@@ -24,7 +24,9 @@ class SettingsViewController: UIViewController {
     weak var delegate : SetSizeAttachment?
     
     @IBAction func saveSettings(sender: AnyObject) {
+        self.navigationItem.title = String.init(format: "%.1f",valueOfHideData.value*100) + " %"
         delegate?.setSA(valueOfHideData.value)
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
     override func viewDidLoad() {
@@ -33,6 +35,7 @@ class SettingsViewController: UIViewController {
         valueOfHideData.value = attSize
         let value = String.init(format: "%.1f",valueOfHideData.value*100)
         valueLabel.text = value + " %"
+        self.navigationItem.title = value + " %"
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "pixels")!)
 
         // Do any additional setup after loading the view.
